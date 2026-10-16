@@ -19,6 +19,8 @@ int main(int argc, char *argv[])
 
     char grade;
 
+
+    
     switch ((int)((a+b+c+d-ma-mi)/2)/10){
         case 10:
         case 9:
