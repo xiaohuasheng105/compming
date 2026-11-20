@@ -44,8 +44,7 @@ void merge_all(char *dept, char *name, int n, int *pos, int *end, int d)
     for (c = 0; c < n; c++) {
         best = -1;
         for (k = 0; k < d; k++)
-            if (pos[k] < end[k] &&
-               (best < 0 || name[pos[k]] < name[pos[best]]))
+            if (pos[k] < end[k] && (best < 0 || name[pos[k]] < name[pos[best]]))
                 best = k;
         printf("%c(%c) ", name[pos[best]], dept[pos[best]]);
         pos[best]++;
