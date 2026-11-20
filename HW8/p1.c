@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-/* 과목 sub의 점수로 학생 번호(ord)를 내림차순 정렬. 원래 배열은 건드리지 않음 */
+/* 과목 sub의 점수로 학생 번호(ord)를 내림차순 정렬 */
 void sort_by_subject(int score[][3], int n, int sub, int *ord)
 {
     int i, j, t;
@@ -29,18 +29,9 @@ int main(void)
     char *subject[3] = {"Korean", "English", "Math"};
     int i, s, k;
 
-    for (i = 0; i < 5; i++) {
-        printf("%d번 학생 (이름 학과 학번 국어 영어 수학): ", i + 1);
-        if (scanf(" %c %c %d %d %d %d", &name[i], &dept[i], &id[i],
-                  &score[i][0], &score[i][1], &score[i][2]) != 6) {
-            printf("입력 형식 오류\n");
-            return 0;
-        }
-        if (id[i] < 100 || id[i] > 999) { printf("학번은 3자리 자연수입니다.\n"); i--; continue; }
-        for (s = 0; s < 3; s++)
-            if (score[i][s] < 0 || score[i][s] > 100) break;
-        if (s < 3) { printf("점수는 0~100입니다.\n"); i--; continue; }
-    }
+    for (i = 0; i < 5; i++)
+        scanf(" %c %c %d %d %d %d", &name[i], &dept[i], &id[i],
+              &score[i][0], &score[i][1], &score[i][2]);
 
     for (s = 0; s < 3; s++) {
         printf("%s:\n", subject[s]);
