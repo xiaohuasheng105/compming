@@ -30,16 +30,14 @@ int main(void)
     int i, s, k;
 
     for (i = 0; i < 5; i++)
-        scanf(" %c %c %d %d %d %d", &name[i], &dept[i], &id[i],
-              &score[i][0], &score[i][1], &score[i][2]);
+        scanf(" %c %c %d %d %d %d", &name[i], &dept[i], &id[i], &score[i][0], &score[i][1], &score[i][2]);
 
     for (s = 0; s < 3; s++) {
         printf("%s:\n", subject[s]);
         sort_by_subject(score, 5, s, ord);
         for (k = 0; k < 5; k++) {
             i = ord[k];
-            printf("%d %c %d %c %d\n", get_rank(score, 5, s, i),
-                   name[i], id[i], dept[i], score[i][s]);
+            printf("%d %c %d %c %d\n", get_rank(score, 5, s, i), name[i], id[i], dept[i], score[i][s]);
         }
     }
     return 0;
