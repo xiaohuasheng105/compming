@@ -20,31 +20,31 @@ void sort_students(char *dept, char *name, int n)
             }
 }
 
-/* 학과별로 출력하면서 각 학과 구간의 시작(start)과 끝(end, 미포함)을 기록. 학과 수를 반환 */
-int print_by_dept(char *dept, char *name, int n, int *start, int *end)
+/* 학과별로 출력하면서 각 학과 구간의 시작(start)과 끝(end, 미포함)을 기록 */
+void print_by_dept(char *dept, char *name, int n, int *start, int *end)
 {
-    int i, d = 0;
+    int i, d = -1;                                   /* d: 현재 학과 번호 0~3 */
     for (i = 0; i < n; i++) {
         if (i == 0 || dept[i] != dept[i - 1]) {      /* 새 학과 시작 */
             if (i > 0) printf("\n");
             printf("%c:", dept[i]);
-            start[d++] = i;
+            start[++d] = i;
         }
         printf(" %c", name[i]);
-        end[d - 1] = i + 1;
+        end[d] = i + 1;
     }
     printf("\n");
-    return d;
 }
 
-/* 각 학과 구간의 맨 앞을 비교해 가장 작은 이름을 하나씩 꺼냄 (다중 merge) */
-void merge_all(char *dept, char *name, int n, int *pos, int *end, int d)
+/* 4개 학과 구간의 맨 앞을 비교해 가장 작은 이름을 하나씩 꺼냄 (다중 merge) */
+void merge_all(char *dept, char *name, int n, int *pos, int *end)
 {
     int k, c, best;
     for (c = 0; c < n; c++) {
         best = -1;
-        for (k = 0; k < d; k++)
-            if (pos[k] < end[k] && (best < 0 || name[pos[k]] < name[pos[best]]))
+        for (k = 0; k < 4; k++)
+            if (pos[k] < end[k] &&
+               (best < 0 || name[pos[k]] < name[pos[best]]))
                 best = k;
         printf("%c(%c) ", name[pos[best]], dept[pos[best]]);
         pos[best]++;
@@ -55,15 +55,15 @@ void merge_all(char *dept, char *name, int n, int *pos, int *end, int d)
 int main(void)
 {
     char dept[10], name[10];
-    int start[4], end[4], d, i;
+    int start[4], end[4], i;
 
     for (i = 0; i < 10; i++)
         scanf(" %c %c", &dept[i], &name[i]);
 
     sort_students(dept, name, 10);
-    d = print_by_dept(dept, name, 10, start, end);
+    print_by_dept(dept, name, 10, start, end);
 
     printf("전체: ");
-    merge_all(dept, name, 10, start, end, d);   /* start는 merge 중에 현재 위치로 사용됨 */
+    merge_all(dept, name, 10, start, end);   /* start는 merge 중에 현재 위치로 사용됨 */
     return 0;
 }
