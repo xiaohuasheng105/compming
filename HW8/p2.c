@@ -37,7 +37,7 @@ int print_by_dept(char *dept, char *name, int n, int *start, int *end)
     return d;
 }
 
-/* 정렬된 학과 구간들의 맨 앞을 비교해 가장 작은 이름을 하나씩 꺼냄 (다중 merge) */
+/* 각 학과 구간의 맨 앞을 비교해 가장 작은 이름을 하나씩 꺼냄 (다중 merge) */
 void merge_all(char *dept, char *name, int n, int *pos, int *end, int d)
 {
     int k, c, best;
@@ -56,20 +56,15 @@ void merge_all(char *dept, char *name, int n, int *pos, int *end, int d)
 int main(void)
 {
     char dept[10], name[10];
-    int start[10], end[10], d, i;
+    int start[4], end[4], d, i;
 
-    printf("학과명과 학생이름 10쌍 입력:\n");
     for (i = 0; i < 10; i++)
-        if (scanf(" %c %c", &dept[i], &name[i]) != 2) {
-            printf("입력 형식 오류\n");
-            return 0;
-        }
+        scanf(" %c %c", &dept[i], &name[i]);
 
     sort_students(dept, name, 10);
     d = print_by_dept(dept, name, 10, start, end);
-    if (d != 4) printf("(학과 수가 4개가 아닙니다: %d개)\n", d);
 
     printf("전체: ");
-    merge_all(dept, name, 10, start, end, d);   /* start는 merge 중에 위치로 사용됨 */
+    merge_all(dept, name, 10, start, end, d);   /* start는 merge 중에 현재 위치로 사용됨 */
     return 0;
 }
